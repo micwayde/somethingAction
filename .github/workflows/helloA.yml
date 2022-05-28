@@ -45,7 +45,7 @@ jobs:
           date > date.txt
           ls
           cat date.txt
-          while (( $NUM != 10 )); do NUM=$(( $NUM+1 )); echo $NUM; echo $NUM >> number.txt done
+          while (( $NUM != 10 )); do NUM=$(( $NUM+1 )); echo $NUM; echo $NUM >> number.txt; done
           
       - name: run a sh
         run: |
