@@ -36,11 +36,33 @@ jobs:
           echo test, and deploy your project.
           
       # below is my setting
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo -E apt-get -qq openssh
+          sudo timedatectl set-timezone Asia/Shanghai
+          # 在根目录创建workdir文件夹，以利用更多磁盘空间。
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir
+
+      - name: Clone source code
+        # 以workdir作为主目录
+        working-directory: /workdir
+        run: |
+          df -hT $PWD
+          # git clone $REPO_URL -b $REPO_BRANCH openwrt
+          mkdir openwrt
+          echo "this file's rootdir is workdir" > ./openwrt/dir.txt
+          # 创建软连接至Actions的工作目录，使Actions能正常编译
+          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+      
       - name: my setting
         env: 
           NUM: 0
         run: |
           pwd
+          df -hT $PWD
           echo This is my setting
           echo $GITHUB_WORKSPACE
           date > date.txt
@@ -53,6 +75,10 @@ jobs:
           pwd
           bash dosomething.sh | tee ds.txt
           ls
+      
+      - name: Check space usage
+        if: (!cancelled())
+        run: df -hT
       
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
