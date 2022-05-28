@@ -43,6 +43,10 @@ jobs:
           pwd
           echo This is my setting
           date > date.txt
+          ls
           cat date.txt
           while (( $NUM != 10 )); do NUM=$(( $NUM+1 )); echo $NUM; done
+          
+      - name: run a sh
+        run: ./dosomething.sh
           
