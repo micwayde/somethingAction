@@ -37,11 +37,12 @@ jobs:
           
       # below is my setting
       - name: my setting
+        env: 
+          NUM: 0
         run: |
           pwd
           echo This is my setting
           date > date.txt
           cat date.txt
-          i = 0
-          while (( $i != 10 )); do i=$(( $i+1 )); echo $i; done
+          while (( $NUM != 10 )); do NUM=$(( $NUM+1 )); echo $NUM; done
           
