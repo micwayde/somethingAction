@@ -48,5 +48,7 @@ jobs:
           while (( $NUM != 10 )); do NUM=$(( $NUM+1 )); echo $NUM; done
           
       - name: run a sh
-        run: ./dosomething.sh
+        run: |
+          pwd
+          bash dosomething.sh
           
