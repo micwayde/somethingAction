@@ -66,7 +66,7 @@ jobs:
           NUM: 0
         run: |
           pwd
-          df -hT $PWD
+          df -hT $(pwd)
           echo This is my setting
           echo $GITHUB_WORKSPACE
           date > date.txt
