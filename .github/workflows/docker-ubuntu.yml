@@ -19,12 +19,24 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo timedatectl set-timezone Asia/Shanghai
+          mkdir output
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir
+      
       # Runs a set of commands using the runners shell
       - name: Build to docker
+        working-directory: /workdir
         run: |
-          mkdir output
-          echo "Add other actions to build!!!" > ./output/ao.txt
-          echo "test, and deploy your project!!!" > ./output/ta.txt
+          df -hT $PWD
+          #sudo tar -cvpf /workdir/system.tar --numeric-owner --directory=/ --exclude=proc --exclude=sys --exclude=dev --exclude=run --exclude=boot --exclude=tmp --exclude=home --exclude=CloudResetPwdUpdateAgent --exclude=CloudrResetPwdAgent --exclude=workdir .
+          echo "build..." > ./output/AA.txt
+          ln -sf /workdir/* $GITHUB_WORKSPACE/output/
+          
         
       - name: Generate release tag
         id: tag
