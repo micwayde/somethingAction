@@ -33,11 +33,9 @@ jobs:
         working-directory: /workdir
         run: |
           df -hT $PWD
-          #sudo tar -cvpf /workdir/system.tar --numeric-owner --directory=/ --exclude=proc --exclude=sys --exclude=dev --exclude=run --exclude=boot --exclude=tmp --exclude=home --exclude=CloudResetPwdUpdateAgent --exclude=CloudrResetPwdAgent --exclude=workdir .
-          echo "build..." > AA.txt
+          sudo tar -cvpf /workdir/system.tar --numeric-owner --directory=/ --exclude=proc --exclude=sys --exclude=dev --exclude=run --exclude=boot --exclude=mnt --exclude=data --exclude=workdir .
+          echo "build at $(date)" > AA.txt
           ls
-          ln -sf /workdir/* $GITHUB_WORKSPACE/output/
-          ls $GITHUB_WORKSPACE/output/
           df -hT $PWD
           
         
