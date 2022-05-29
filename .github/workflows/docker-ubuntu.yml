@@ -37,6 +37,7 @@ jobs:
           echo "build..." > AA.txt
           ls
           ln -sf /workdir/* $GITHUB_WORKSPACE/output/
+          ls $GITHUB_WORKSPACE/output/
           df -hT $PWD
           
         
@@ -53,4 +54,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.tag.outputs.release_tag }}
-          files: ./output/*
+          files: /workdir/*
